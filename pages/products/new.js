@@ -1,5 +1,6 @@
 import Layout from "@/components/Layout";
 import { useState } from "react";
+import axios from "axios";
 
 export default function NewProduct() {
     const [title, setTitle] = useState("");
