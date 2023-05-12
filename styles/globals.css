@@ -1,3 +1,25 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+input,
+textarea {
+    @apply border-2 border-purple-200 rounded-md px-2 w-full mb-2;
+}
+
+input:focus,
+textarea:focus {
+    @apply border-purple-900;
+}
+
+h1 {
+    @apply text-purple-900 mb-3 text-xl;
+}
+
+label {
+    @apply text-purple-900;
+}
+
+.create-new-btn {
+    @apply bg-purple-900 text-white px-4 py-1 rounded-md;
+}
