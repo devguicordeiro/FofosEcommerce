@@ -37,5 +37,5 @@ table.basict tr td {
 }
 
 table.basict a {
-    @apply inline-flex gap-1 bg-purple-900 text-white text-sm py-1 px-2 rounded-md;
+    @apply inline-flex gap-1 bg-purple-900 text-white text-sm py-1 px-2 mr-2 rounded-md;
 }
