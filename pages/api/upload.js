@@ -4,11 +4,11 @@ const bucketName = "fofos-ecommerce"
 
 export default async function handle(req, res) {
     const form = new multiparty.Form();
-    const {fileds, files} = await new Promise((resolve, reject) => {
+    const {fields, files} = await new Promise((resolve, reject) => {
     form.parse(req, (err, fields, files) => {
         if (err) reject(err);
-        resolve({fileds,files});
-    })
+        resolve({fields,files});
+    });
 });
 
 const client = new S3Client({
@@ -20,7 +20,7 @@ const client = new S3Client({
 });
 
 for (const file of files.file) {
-    await client.send(new PutObjectAclCommand0({
+    await client.send(new PutObjectCommand({
         Bucket: bucketName,
         Key: ""
     }));    
