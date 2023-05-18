@@ -4,3 +4,7 @@ actually it'll be quite challeging 'cause is the first time i put in practice lo
 that i just have seen the teorical part. sure is gonna be fun</br>
 if you are liking this project, consider giving it a star in the github repository:</br>
 https://github.com/devguicordeiro/FofosEcommerce
+</br>
+</br>
+
+i'm having a small problema with the aws so i'll be putting this project on hold till i solve it
