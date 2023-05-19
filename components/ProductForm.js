@@ -7,10 +7,11 @@ export default function ProductForm({
                                     title:existingTitle,
                                     description:existingDescription,
                                     price:existingPrice,
-                                    images
+                                    images:existingImages,
     }) {
     const [title, setTitle] = useState(existingTitle || "");
     const [description, setDescription] = useState(existingDescription || "");
+    const [images, setImages] = useState(existingImages || []);
     const [price, setPrice] = useState(existingPrice || "");
     const [goToProducts, setGoToProducts] = useState(false);
     const router = useRouter();
@@ -38,11 +39,11 @@ export default function ProductForm({
             for (const file of files){
                 data.append("file", file);
             }
-            const res = await fetch("/api/upload", {
-                method: "POST",
-                body: data,
-            });
-        }
+            const res = await axios.post("/api/upload", data);
+            setImages(oldImages => {
+                return[...oldImages, ...res.data.links];
+            })
+        };
     }
 
     return(
@@ -58,6 +59,11 @@ export default function ProductForm({
                 Imagens 
             </label>
             <div className="mb-2">
+                {!!images?.length && images.map(link => (
+                    <div key={link}>
+                        <img src={link} alt =""/>
+                    </div>
+                ))}
                 <label className="cursor-pointer my-1 w-28 h-28 border border-2 flex flex-col items-center justify-center text-center text-gray-400 rounded-md bg-gray-50">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 7.5h-.75A2.25 2.25 0 004.5 9.75v7.5a2.25 2.25 0 002.25 2.25h7.5a2.25 2.25 0 002.25-2.25v-7.5a2.25 2.25 0 00-2.25-2.25h-.75m0-3l-3-3m0 0l-3 3m3-3v11.25m6-2.25h.75a2.25 2.25 0 012.25 2.25v7.5a2.25 2.25 0 01-2.25 2.25h-7.5a2.25 2.25 0 01-2.25-2.25v-.75" />
