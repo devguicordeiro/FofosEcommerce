@@ -12,6 +12,10 @@ textarea:focus {
     @apply border-purple-900;
 }
 
+img {
+    max-height: 100%;
+}
+
 h1 {
     @apply text-purple-900 mb-3 text-xl;
 }
