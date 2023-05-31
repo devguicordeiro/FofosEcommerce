@@ -2,9 +2,10 @@ import Layout from "@/components/Layout";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-export default function Categoies() {
+export default function Categories() {
     const[name,setName] = useState("");
     const[categories, setCategories] = useState([]);
+    const[parentCategory, setParentCategory] = useState("");
     useEffect(() => {
         fetchCategories();
     }, []);
@@ -15,7 +16,7 @@ export default function Categoies() {
     };
     async function saveCategory(ev){
         ev.preventDefault();
-        axios.post("/api/categories", {name});
+        axios.post("/api/categories", {name, parentCategory});
         setName("");
         fetchCategories();
     }
@@ -29,7 +30,9 @@ export default function Categoies() {
                         onChange={ev => setName(ev.target.value)} 
                         type="text" placeholder={"Nome da Categoria"}>
                 </input>
-                <select className="m-0">
+                <select className="m-0" 
+                        onChange={ev => setParentCategory(ev.target.value)}
+                        value={parentCategory}>
                     <option value="">Categoria Principal</option>
                     {categories.length > 0 && categories.map(category => (
                         <option value={category._id}>{category.name}</option>
