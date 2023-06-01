@@ -22,7 +22,7 @@ import {mongooseConnect} from "@/lib/mongoose";
     }
     if (method === "PUT"){
         const {title, description, price, _id, images, category} = req.body;
-        await Product.updateOne({_id}, {title, description, price, images});
+        await Product.updateOne({_id}, {title, description, price, images, category});
         res.json(true);
     }
 
