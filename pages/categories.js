@@ -49,9 +49,9 @@ function Categories({swal}) {
       confirmButtonColor: "#991b1b",
       cancelButtonColor: "#9ca3af",
   }).then(async result => {
-      if(result.isConfimed) {
+      if(result.isConfirmed) {
         const {_id} = category;
-        await axios.delete("/api/categories?_id"+_id);
+        await axios.delete("/api/categories?_id="+_id);
         fetchCategories();
       }
   });
@@ -131,5 +131,5 @@ function Categories({swal}) {
 }
 
 export default withSwal(({swal}, ref) => (
-  <Categories swal={swal}></Categories>
+  <Categories swal={swal}/>
 ))
