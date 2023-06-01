@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { RotateLoader } from "react-spinners";
@@ -11,17 +11,24 @@ export default function ProductForm({
                                     price:existingPrice,
                                     images:existingImages,
     }) {
+    const [category, setCategory] = useState("");
     const [title, setTitle] = useState(existingTitle || "");
     const [description, setDescription] = useState(existingDescription || "");
     const [images, setImages] = useState(existingImages || []);
     const [price, setPrice] = useState(existingPrice || "");
     const [goToProducts, setGoToProducts] = useState(false);
     const [isUploading,setIsUploading] = useState(false);
+    const [categories, setCategories] = useState([]);
     const router = useRouter();
+    useEffect(() => {
+        axios.get("/api/categories").then(result => {
+            setCategories(result.data);
+        })
+    }, []);
     async function saveProduct(ev) {
         ev.preventDefault();
 
-        const data = {title, description, price, images}
+        const data = {title, description, price, images, category}
         if(_id) {
             //update product
             await axios.put("/api/products", {...data, _id})
@@ -67,7 +74,6 @@ export default function ProductForm({
             <label>
                 Imagens 
             </label>
-
             <div className="mb-2 flex flex-wrap gap-2">
                 <ReactSortable list={images} setList={updateImagesOrder} 
                 className="flex flex-wrap gap-2">
@@ -95,6 +101,15 @@ export default function ProductForm({
                     <input type="file" className="hidden" onChange={uploadImages}></input>
                 </label>
             </div>
+            <label>Categoria</label>
+            <select value={category}
+                    onChange={ev => setCategory(ev.target.value)}>
+                <option value="">Sem Categoria</option>
+                {categories.length > 0 && categories.map(c => (
+                    <option value={c._id}>{c.name}</option>
+                ))}
+            </select>
+
             <label>Descrição do produto</label>
             <textarea 
                 placeholder ="Insira a descrição aqui"

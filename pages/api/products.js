@@ -14,14 +14,14 @@ import {mongooseConnect} from "@/lib/mongoose";
     }
 
     if (method === "POST"){
-        const {title, description, price, images} = req.body;
+        const {title, description, price, images, category} = req.body;
         const productDoc = await Product.create({
                 title, description, price, images
             })
         res.json(productDoc);
     }
     if (method === "PUT"){
-        const {title, description, price, _id, images} = req.body;
+        const {title, description, price, _id, images, category} = req.body;
         await Product.updateOne({_id}, {title, description, price, images});
         res.json(true);
     }
