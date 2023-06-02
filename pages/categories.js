@@ -3,7 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { withSwal } from 'react-sweetalert2';
 
-function Categories({swal}) {
+function Categories({ swal }) {
   const [editedCategory, setEditedCategory] = useState(null);
   const [name, setName] = useState("");
   const [categories, setCategories] = useState([]);
@@ -22,7 +22,7 @@ function Categories({swal}) {
 
   async function saveCategory(ev) {
     ev.preventDefault();
-    const data = {name, parentCategory};
+    const data = { name, parentCategory };
     if (editedCategory) {
       data._id = editedCategory._id;
       await axios.put("/api/categories", data);
@@ -51,8 +51,8 @@ function Categories({swal}) {
       cancelButtonColor: "#9ca3af",
     }).then(async result => {
       if (result.isConfirmed) {
-        const {_id} = category;
-        await axios.delete("/api/categories?_id="+_id);
+        const { _id } = category;
+        await axios.delete("/api/categories?_id=" + _id);
         fetchCategories();
       }
     });
@@ -60,7 +60,23 @@ function Categories({swal}) {
 
   function addProperty() {
     setProperties(prev => {
-      return [...prev, {name:"", values:""}];
+      return [...prev, { name: "", values: "" }];
+    });
+  }
+
+  function handlePropertyNameChange(index, property, newName) {
+    setProperties(prev => {
+      const properties = [...prev];
+      properties[index].name = newName;
+      return properties;
+    });
+  }
+
+  function handlePropertyValuesChange(index, property, newValues) {
+    setProperties(prev => {
+      const properties = [...prev];
+      properties[index].values = newValues;
+      return properties;
     });
   }
 
@@ -98,17 +114,21 @@ function Categories({swal}) {
           >
             Adicionar nova propiedade
           </button>
-          {properties.length > 0 && properties.map(property => 
-            (
-              <div className="flex gap-1">
-                <input  type="text" 
-                        value={property.name} 
-                        placeholder="propriedade (ex: cor)"
-                ></input>
-                <input  type="text" 
-                        value={property.value} 
-                        placeholder="característica"
-                ></input>
+          {properties.length > 0 &&
+            properties.map((property, index) => (
+              <div key={index} className="flex gap-1">
+                <input
+                  type="text"
+                  value={property.name}
+                  placeholder="propriedade (ex: cor)"
+                  onChange={(ev) => handlePropertyNameChange(index, property, ev.target.value)}
+                />
+                <input
+                  type="text"
+                  value={property.values}
+                  placeholder="características (ex: azul, roxo, preto)"
+                  onChange={(ev) => handlePropertyValuesChange(index, property, ev.target.value)}
+                />
               </div>
             ))}
         </div>
@@ -185,6 +205,4 @@ function Categories({swal}) {
   );
 }
 
-export default withSwal(({swal}, ref) => (
-  <Categories swal={swal}/>
-));
+export default withSwal(({ swal }, ref) => <Categories swal={swal} />);
