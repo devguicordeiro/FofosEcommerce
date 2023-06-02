@@ -80,6 +80,14 @@ function Categories({ swal }) {
     });
   }
 
+  function removeProperty(indexToRemove) {
+    setProperties(prev => {
+      return [...prev].filter((p, pIndex) => {
+        return pIndex !== indexToRemove;
+      });
+    });
+  }
+
   return (
     <Layout>
       <h1>Categorias</h1>
@@ -116,30 +124,51 @@ function Categories({ swal }) {
           </button>
           {properties.length > 0 &&
             properties.map((property, index) => (
-              <div key={index} className="flex gap-1">
+              <div key={index} className="flex gap-1 mb-2">
                 <input
+                  className="mb-0"
                   type="text"
                   value={property.name}
                   placeholder="propriedade (ex: cor)"
                   onChange={(ev) => handlePropertyNameChange(index, property, ev.target.value)}
                 />
                 <input
+                  className="mb-0"
                   type="text"
                   value={property.values}
                   placeholder="características (ex: azul, roxo, preto)"
                   onChange={(ev) => handlePropertyValuesChange(index, property, ev.target.value)}
                 />
+                <button 
+                  type="button"
+                  onClick={() => removeProperty(index)}
+                  className="bg-gray-400 border border-black px-2 rounded-md text-white" >Remover</button>
               </div>
             ))}
         </div>
+        <div className="flex gap-1">
+        {editedCategory && (
+          <button 
+          type="button"
+          onClick={() => {setEditedCategory(null);
+                          setName("");
+                          setParentCategory("");
+                          }}
+          className="bg-gray-400 border border-black px-2 rounded-md text-white"
+          >
+            Cancelar
+          </button>
+        )}
         <button
           type="submit"
           className="bg-purple-700 text-white border border-black px-2 rounded-md"
         >
           Salvar
         </button>
+        </div>
       </form>
-      <table className="basict mt-4">
+      {!editedCategory && (
+        <table className="basict mt-4">
         <thead>
           <tr>
             <td>Nome da Categoria</td>
@@ -201,6 +230,8 @@ function Categories({ swal }) {
             ))}
         </tbody>
       </table>
+
+      )}
     </Layout>
   );
 }
