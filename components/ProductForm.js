@@ -10,7 +10,8 @@ export default function ProductForm({
                                     description:existingDescription,
                                     price:existingPrice,
                                     images:existingImages,
-                                    category:assignedCategory
+                                    category:assignedCategory,
+                                    properties:assignedProperties
     }) {
     const [category, setCategory] = useState(assignedCategory || "");
     const [title, setTitle] = useState(existingTitle || "");
@@ -18,7 +19,7 @@ export default function ProductForm({
     const [images, setImages] = useState(existingImages || []);
     const [price, setPrice] = useState(existingPrice || "");
     const [goToProducts, setGoToProducts] = useState(false);
-    const [productProperties, setProductProperties] = useState({});
+    const [productProperties, setProductProperties] = useState(assignedProperties || {});
     const [isUploading,setIsUploading] = useState(false);
     const [categories, setCategories] = useState([]);
     const router = useRouter();
@@ -30,7 +31,7 @@ export default function ProductForm({
     async function saveProduct(ev) {
         ev.preventDefault();
 
-        const data = {title, description, price, images, category}
+        const data = {title, description, price, images, category, properties:productProperties}
         if(_id) {
             //update product
             await axios.put("/api/products", {...data, _id})
