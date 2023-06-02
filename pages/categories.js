@@ -22,7 +22,14 @@ function Categories({ swal }) {
 
   async function saveCategory(ev) {
     ev.preventDefault();
-    const data = { name, parentCategory };
+    const data = { 
+      name, 
+      parentCategory, 
+      properties:properties.map(p => ({
+        name:p.name, 
+        values:p.values.split(",")
+      })),
+    };
     if (editedCategory) {
       data._id = editedCategory._id;
       await axios.put("/api/categories", data);
@@ -31,6 +38,8 @@ function Categories({ swal }) {
       await axios.post("/api/categories", data);
     }
     setName("");
+    setParentCategory("");
+    setProperties([]);
     fetchCategories();
   }
 
@@ -38,6 +47,10 @@ function Categories({ swal }) {
     setEditedCategory(category);
     setName(category.name);
     setParentCategory(category.parent?._id);
+    setProperties(category.properties.map(({name,values}) => ({
+      name,
+      values:values.join(",")
+    })));
   }
 
   function deleteCategory(category) {
@@ -153,6 +166,7 @@ function Categories({ swal }) {
           onClick={() => {setEditedCategory(null);
                           setName("");
                           setParentCategory("");
+                          setProperties([]);
                           }}
           className="bg-gray-400 border border-black px-2 rounded-md text-white"
           >
