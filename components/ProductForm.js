@@ -18,6 +18,7 @@ export default function ProductForm({
     const [images, setImages] = useState(existingImages || []);
     const [price, setPrice] = useState(existingPrice || "");
     const [goToProducts, setGoToProducts] = useState(false);
+    const [productProperties, setProductProperties] = useState({});
     const [isUploading,setIsUploading] = useState(false);
     const [categories, setCategories] = useState([]);
     const router = useRouter();
@@ -60,6 +61,31 @@ export default function ProductForm({
     }
     function updateImagesOrder(images) {
         setImages(images);
+    }
+
+    const propertiesToFill = [];
+    if (category.length > 0 && category) {
+      let catInfo = categories.find(({ _id }) => _id === category);
+      if (catInfo) {
+        propertiesToFill.push(...catInfo.properties);
+        while (catInfo?.parent?._id) {
+          const parentCat = categories.find(({ _id }) => _id === catInfo?.parent?._id);
+          if (parentCat) {
+            propertiesToFill.push(...parentCat.properties);
+            catInfo = parentCat;
+          } else {
+            break;
+          }
+        }
+      }
+    }
+
+    function setProductProp(propName, value){
+        setProductProperties (prev => {
+            const newProductProps = {...prev};
+            newProductProps[propName] = value;
+            return newProductProps;
+        })
     }
 
     return(
@@ -110,6 +136,19 @@ export default function ProductForm({
                     <option value={c._id}>{c.name}</option>
                 ))}
             </select>
+
+            {categories.length > 0 && propertiesToFill.map( p => (
+                <div className="flex gap-1">
+                    <div>{p.name}</div>
+                    <select 
+                        value={productProperties[p.name]}
+                        onChange={ev => setProductProp(p.name, ev.target.value)}>
+                        {p.values.map(v => (
+                            <option value={v}>{v}</option>
+                        ))}
+                    </select>
+                </div>
+            ))}
 
             <label>Descrição do produto</label>
             <textarea 
