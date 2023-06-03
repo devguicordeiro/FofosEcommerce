@@ -29,6 +29,8 @@ export default NextAuth(authOptions);
 
 export async function isAdminRequest(req, res) {
   const session = await getServerSession(req, res, authOptions);
+  res.status(401);
+  res.end();
   if (!adminEmails.includes(session?.user?.email)) {
     throw "you're not an admin"
   }
