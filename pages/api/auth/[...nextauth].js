@@ -14,7 +14,7 @@ export const authOptions = {
   ],
   adapter: MongoDBAdapter(clientPromise),
   callbacks: {
-    session: ({session,account,profile}) => {
+    session: ({session,token,user}) => {
       if (adminEmails.includes(session?.user?.email)){
         return session;
       } else {
@@ -30,6 +30,8 @@ export default NextAuth(authOptions);
 export async function isAdminRequest(req, res) {
   const session = await getServerSession(req, res, authOptions);
   if (!adminEmails.includes(session?.user?.email)) {
+    res.status(401);
+    res.end();
     throw "you're not an admin"
   }
 }
