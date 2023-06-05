@@ -4,11 +4,17 @@ import {useRouter} from "next/router"
 
 export default function Nav() {
     const inactiveLink = "flex gap-1";
-    const activeLink = inactiveLink+" bg-white text-purple-900 p-1 rounded-l-md";
+    const activeLink = inactiveLink+" bg-white text-purple-900 p-1 rounded-md";
     const router = useRouter();
     const {pathname} = router;
+    const inactiveIcon = "w-6 h-6";
+    const activeIcon = inactiveIcon + " fill-purple-700";
+    async function logout() {
+        await router.push("/");
+        await signOut();
+    }
     return(
-        <aside className="text-white p-4 pr-0">
+        <aside className="text-white p-4">
             <Link href={"/"} className="flex gap-1 mb-4 mr-4">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 7.125C2.25 6.504 2.754 6 3.375 6h6c.621 0 1.125.504 1.125 1.125v3.75c0 .621-.504 1.125-1.125 1.125h-6a1.125 1.125 0 01-1.125-1.125v-3.75zM14.25 8.625c0-.621.504-1.125 1.125-1.125h5.25c.621 0 1.125.504 1.125 1.125v8.25c0 .621-.504 1.125-1.125 1.125h-5.25a1.125 1.125 0 01-1.125-1.125v-8.25zM3.75 16.125c0-.621.504-1.125 1.125-1.125h5.25c.621 0 1.125.504 1.125 1.125v2.25c0 .621-.504 1.125-1.125 1.125h-5.25a1.125 1.125 0 01-1.125-1.125v-2.25z" />
@@ -19,7 +25,7 @@ export default function Nav() {
             </Link>
             <nav className="flex flex-col gap-2">
                 <Link className={pathname === "/" ? activeLink : inactiveLink} href={"/"}>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={pathname === "/" ? activeIcon : inactiveIcon}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6" />
                     </svg>
                     Painel de Controle
