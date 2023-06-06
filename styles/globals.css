@@ -31,15 +31,15 @@ label {
 }
 
 table.basict {
-    @apply w-full mt-3;
+    @apply w-full mt-3 shadow-md bg-purple-50;
 }
 
 table.basict thead tr td {
-    @apply bg-purple-300;
+    @apply bg-purple-300 px-4 py-2;
 }
 
 table.basict tr td {
-    @apply border border-purple-400 p-1;
+    @apply border px-4 py-1;
 }
 
 table.basict a {
