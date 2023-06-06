@@ -220,7 +220,7 @@ function Categories({ swal }) {
                     </button>
                     <button
                       onClick={() => deleteCategory(category)}
-                      className="create-new-btn flex items-center text-sm"
+                      className="btn-red flex items-center text-sm"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"

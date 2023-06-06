@@ -5,7 +5,7 @@
 input,
 textarea,
 select {
-    @apply border-2 border-purple-200 rounded-md px-2 w-full mb-2;
+    @apply border border-purple-200 rounded-sm px-4 w-full mb-2 py-1;
 }
 
 input:focus,
@@ -19,15 +19,15 @@ img {
 }
 
 h1 {
-    @apply text-purple-900 mb-3 text-xl;
+    @apply text-gray-800 mb-3 text-xl;
 }
 
 label {
-    @apply text-purple-900;
+    @apply text-purple-900 text-sm;
 }
 
 .create-new-btn {
-    @apply bg-purple-900 text-white px-4 py-1 rounded-md;
+    @apply bg-white text-purple-900 px-4 py-1 rounded-md shadow-sm border border-purple-400;
 }
 
 table.basict {
@@ -43,16 +43,16 @@ table.basict tr td {
 }
 
 table.basict a {
-    @apply inline-flex gap-1 bg-purple-900 text-white text-sm py-1 px-2 mr-2 rounded-md;
+    @apply inline-flex gap-1 text-sm py-1 px-2 mr-2 rounded-md;
 }
 
 .btn-default,
 .btn-red {
-    @apply px-4 py-2 rounded-md border border-black;
+    @apply px-4 py-1 rounded-md border border border-purple-400 shadow-sm;
 }
 
 .btn-red {
-    @apply bg-red-800 text-white;
+    @apply bg-red-200 text-red-600;
 }
 
 .btn-default {
