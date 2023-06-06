@@ -1,8 +1,9 @@
 import { signOut } from "next-auth/react";
 import Link from "next/link"
 import {useRouter} from "next/router"
+import Logo from "./Logo";
 
-export default function Nav() {
+export default function Nav({show}) {
     const inactiveLink = "flex gap-1";
     const activeLink = inactiveLink+" bg-white text-purple-900 p-1 rounded-md";
     const router = useRouter();
@@ -14,15 +15,11 @@ export default function Nav() {
         await signOut();
     }
     return(
-        <aside className="text-white p-4">
-            <Link href={"/"} className="flex gap-1 mb-4 mr-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 7.125C2.25 6.504 2.754 6 3.375 6h6c.621 0 1.125.504 1.125 1.125v3.75c0 .621-.504 1.125-1.125 1.125h-6a1.125 1.125 0 01-1.125-1.125v-3.75zM14.25 8.625c0-.621.504-1.125 1.125-1.125h5.25c.621 0 1.125.504 1.125 1.125v8.25c0 .621-.504 1.125-1.125 1.125h-5.25a1.125 1.125 0 01-1.125-1.125v-8.25zM3.75 16.125c0-.621.504-1.125 1.125-1.125h5.25c.621 0 1.125.504 1.125 1.125v2.25c0 .621-.504 1.125-1.125 1.125h-5.25a1.125 1.125 0 01-1.125-1.125v-2.25z" />
-                    </svg>
-                <span className="">
-                    Fofos-Admin
-                </span>
-            </Link>
+        <aside className={(show?"left-0" : "-left-full") + " top-0 text-white p-4 fixed h-full w-full bg-purple-900 md:static md:w-auto transition-all"}>
+            <div className="mb-4 mr-4">
+                <Logo></Logo>    
+            </div>
+ 
             <nav className="flex flex-col gap-2">
                 <Link className={pathname === "/" ? activeLink : inactiveLink} href={"/"}>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={pathname === "/" ? activeIcon : inactiveIcon}>
