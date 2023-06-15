@@ -34,7 +34,8 @@ table.basict {
     @apply w-full mt-3 shadow-md bg-purple-50;
 }
 
-table.basict thead tr td {
+table.basict thead tr td,
+table.basict thead tr th {
     @apply bg-purple-300 px-4 py-2;
 }
 
