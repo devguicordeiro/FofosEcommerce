@@ -6,3 +6,5 @@ if you are enjoying this project, consider giving it a star in the github reposi
 https://github.com/devguicordeiro/FofosEcommerce
 </br>
 </br>
+This project was delayed a bit because a I had some problems with my computer. </br>
+it was supposed to be deployed 1 week ago.
