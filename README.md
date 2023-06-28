@@ -6,5 +6,5 @@ if you are enjoying this project, consider giving it a star in the github reposi
 https://github.com/devguicordeiro/FofosEcommerce
 </br>
 </br>
-This project was delayed a bit because a I had some problems with my computer. </br>
-it was supposed to be deployed 1 week ago.
+This project is supposed to be slow, im working on it while learning. </br>
+it means that i usually spend one hour max per day on it 
