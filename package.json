@@ -14,6 +14,7 @@
     "axios": "^1.4.0",
     "eslint": "8.40.0",
     "eslint-config-next": "13.4.1",
+    "micro": "^10.0.1",
     "mime-types": "^2.1.35",
     "mongodb": "^5.4.0",
     "mongoose": "^7.1.1",
@@ -25,7 +26,8 @@
     "react-sortablejs": "^6.1.4",
     "react-spinners": "^0.13.8",
     "react-sweetalert2": "^0.5.2",
-    "sortablejs": "^1.15.0"
+    "sortablejs": "^1.15.0",
+    "stripe": "^12.12.0"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.14",
