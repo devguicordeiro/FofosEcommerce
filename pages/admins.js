@@ -1,10 +1,15 @@
 import Layout from "@/components/Layout";
+import axios from "axios";
 import { useState } from "react";
 
 export default function AdminsPage() {
     const [email, setEmail] = useState("");
-    function addAdmin(){
-        
+    function addAdmin(ev){
+        ev.preventDefault();
+        axios.post("/api/adminsapi", {email}).then(res => {
+            console.log(res.data);
+            setEmail("");
+        })
     }
     return (
         <Layout>

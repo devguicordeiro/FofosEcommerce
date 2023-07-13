@@ -1,5 +1,7 @@
-import { Schema } from "mongoose"
+import { Schema, model, models } from "mongoose"
 
 const adminSchema = new Schema({
-    email: String,
-})
+    email: {type: String, required: true},
+});
+
+export const Admin = models?.Admin || model("Admin", adminSchema);
