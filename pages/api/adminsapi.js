@@ -9,4 +9,7 @@ export default async function handle(req, res) {
         const {email} = req.body;
         res.json(await Admin.create({email}))
     }
+    if (req.method === "GET") {
+        res.json (await Admin.find());
+    }
 }
