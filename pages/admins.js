@@ -1,4 +1,6 @@
 import Layout from "@/components/Layout";
+import Spinner from "@/components/Spinner";
+import { dateFormat } from "@/lib/date";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { withSwal } from "react-sweetalert2";
@@ -16,15 +18,20 @@ function AdminsPage({swal}) {
                 icon: "success",
             });
             setEmail("");
+            loadAdmins();
         })
     }
-    
-    useEffect(() => {
+
+    function loadAdmins() {
         setIsLoading(true);
         axios.get("/api/adminsapi").then(res => {
             setAdminEmails(res.data);
             setIsLoading(false);
         });
+    };
+    
+    useEffect(() => {
+        loadAdmins();
     }, []);
 
     return (
@@ -45,9 +52,21 @@ function AdminsPage({swal}) {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>test</td>
-                    </tr>
+                    {isLoading && (
+                        <tr>
+                            <td colSpan={2}>
+                            <div className="py-4">
+                                <Spinner fullWidthP={true} />
+                            </div>
+                            </td>
+                        </tr>
+                    )}
+                    {adminEmails.length > 0 && adminEmails.map(adminEmail => (
+                        <tr>
+                            <td>{adminEmail.email}</td>
+                            <td>{dateFormat(adminEmail.createdAt)}</td>
+                        </tr>
+                    ))}
                 </tbody>
             </table>
         </Layout>
