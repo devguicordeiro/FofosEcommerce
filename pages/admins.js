@@ -30,14 +30,26 @@ function AdminsPage({swal}) {
         });
     };
 
-    function deleteAdmin(_id) {
-        axios.delete("/api/adminsapi?_id="+_id).then(() => {
-            swal.fire({
-                title: "Administrador deletado!",
-                icon: "success",
-        });
-        loadAdmins();
-    });
+    function deleteAdmin(_id, email) {
+        swal.fire({
+            title: 'Você tem certeza?',
+            text: `Você realmente deseja deletar o administrador: ${email}?`,
+            showCancelButton: true,
+            cancelButtonText: "Cancelar",
+            confirmButtonText: "Sim, Deletar!",
+            confirmButtonColor: "#991b1b",
+            cancelButtonColor: "#9ca3af",
+          }).then(async result => {
+            if (result.isConfirmed) {
+                axios.delete("/api/adminsapi?_id="+_id).then(() => {
+                    swal.fire({
+                        title: "Administrador deletado!",
+                        icon: "success",
+                });
+                loadAdmins();
+            });
+            }
+          });
     };
     
     useEffect(() => {
@@ -83,7 +95,7 @@ function AdminsPage({swal}) {
                             <td>
                             <div className="space-x-2 flex justify-center">
                                 <button
-                                onClick={() => deleteAdmin(adminEmail._id)}
+                                onClick={() => deleteAdmin(adminEmail._id, adminEmail.email)}
                                 className="btn-red flex items-center text-sm"
                                 >
                                 <svg
