@@ -1,9 +1,14 @@
 import Layout from "@/components/Layout";
 
-export default function Products() {
+export default function SettingsPage() {
     return(
         <Layout>
-            Página de Configurações
+            <h1>Configurações do Site</h1>
+            <label>Produto em Destaque</label>
+            <select></select>
+            <div>
+                <button className="btn-default">Salvar</button>
+            </div>
         </Layout>
     )
 
