@@ -19,6 +19,12 @@ function AdminsPage({swal}) {
             });
             setEmail("");
             loadAdmins();
+        }).catch(err => {
+            swal.fire({
+                title: "Erro!",
+                text: "O email já está cadastrado.",
+                icon: "error",
+            });
         })
     };
 
