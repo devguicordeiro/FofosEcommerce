@@ -12,13 +12,17 @@ export default function SettingsPage() {
         axios.get("/api/products").then(res => {
             setProducts(res.data);
             setIsLoading(false);
-        })
+        });
+        axios.get("/api/settings?name=featuredId").then(res => {
+            setFeaturedId(res.data.value);
+        });
     }, []);
 
     async function saveSettings() {
+        const id = featuredId;
         await axios.put("/api/settings", {
-            name: "featuredProductId",
-            value: featuredId,
+            name: "featuredId",
+            value: id,
         })
     }
     return(
@@ -30,7 +34,7 @@ export default function SettingsPage() {
             {!isLoading && (
                 <>
                     <label>Produto em Destaque</label>
-                    <select onChange={ev => setFeaturedId(ev.target.value)} >
+                    <select value={featuredId} onChange={ev => setFeaturedId(ev.target.value)} >
                         {products.length > 0 && products.map(product => (
                             <option key={product._id} value={product._id}>{product.title}</option>
                         ))}
