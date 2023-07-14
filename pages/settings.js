@@ -13,7 +13,14 @@ export default function SettingsPage() {
             setProducts(res.data);
             setIsLoading(false);
         })
-    }, [])
+    }, []);
+
+    async function saveSettings() {
+        await axios.put("/api/settings", {
+            name: "featuredProductId",
+            value: featuredId,
+        })
+    }
     return(
         <Layout>
             <h1>Configurações do Site</h1>
@@ -29,7 +36,7 @@ export default function SettingsPage() {
                         ))}
                     </select>
                     <div>
-                        <button className="btn-default">Salvar</button>
+                        <button onClick={saveSettings} className="btn-default">Salvar</button>
                     </div>
                 </>
             )}
