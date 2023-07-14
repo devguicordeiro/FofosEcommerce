@@ -8,27 +8,43 @@ function SettingsPage({swal}) {
     const[products,  setProducts] = useState([]);
     const[featuredId, setFeaturedId] = useState(null);
     const[isLoading, setIsLoading] = useState(false);
+    const[shippingFee, setShippingFee] = useState("");
     useEffect(() => {
         setIsLoading(true);
-        axios.get("/api/products").then(res => {
-            setProducts(res.data);
+        fetchAll().then(() => {
             setIsLoading(false);
-        });
-        axios.get("/api/settings?name=featuredId").then(res => {
-            setFeaturedId(res.data.value);
         });
     }, []);
 
+    async function fetchAll() {
+        await axios.get("/api/products").then(res => {
+            setProducts(res.data);
+            setIsLoading(false);
+        });
+        await axios.get("/api/settings?name=featuredId").then(res => {
+            setFeaturedId(res.data?.value);
+        });
+        await axios.get("/api/settings?name=shippingFee").then(res => {
+            setShippingFee(res.data?.value);
+        });
+    }
+
     async function saveSettings() {
+        setIsLoading(true);
         const id = featuredId;
+        const fee = shippingFee;
         await axios.put("/api/settings", {
             name: "featuredId",
             value: id,
-        }).then(() => {
-            swal.fire({
-                title: "Configuração salva!",
-                icon: "success",
-            });
+        });
+        await axios.put("/api/settings", {
+            name: "shippingFee",
+            value: fee,
+        });
+        setIsLoading(false);
+        await swal.fire({
+            title: "Configuração salva!",
+            icon: "success",
         });
     }
     return(
@@ -45,6 +61,8 @@ function SettingsPage({swal}) {
                             <option key={product._id} value={product._id}>{product.title}</option>
                         ))}
                     </select>
+                    <label>Taxa de Entrega (R$)</label>
+                    <input type="number" value={shippingFee} onChange={ev => setShippingFee(ev.target.value)} />
                     <div>
                         <button onClick={saveSettings} className="btn-default">Salvar</button>
                     </div>
