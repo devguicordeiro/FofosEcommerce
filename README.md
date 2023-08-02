@@ -13,7 +13,6 @@ What can you find here:
 ## First big project, using next.js, React and MongoDB
 
 Notes:
-- After almost 2 weeks suffering from acute gastrits, tmrw i'll be finally back to coding and finish this project.
 
 
 ## Please help me out by starring this repository
