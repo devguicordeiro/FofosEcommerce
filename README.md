@@ -14,6 +14,10 @@ What can you find here:
 
 Notes:
 
+after a really long time, im getting back to coding.
+i've spent a long time away because of serius health issues
+I think I should give an explanation about my abscense, so that is it
+
 
 ## Please help me out by starring this repository
 
